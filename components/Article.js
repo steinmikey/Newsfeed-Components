@@ -110,6 +110,18 @@ const data = [
 // Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
 // to create a div.article element and append it to the DOM inside div.articles (see index.html).
 
+// Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
+// Refresh the page to see the new article.
+
+const extraArticle = {
+  title: "Extra test article",
+  date: "Mar 32, 2045",
+  firstParagraph: "lorem",
+  secondParagraph: "more lorem",
+  thirdParagraph: `little bit o' ipsum`,
+};
+data.push(extraArticle);
+
 function articleMaker({ title, date, firstParagraph, secondParagraph, thirdParagraph }) {
   const article = document.createElement("div");
   const articleTitle = document.createElement("h2");
@@ -120,7 +132,6 @@ function articleMaker({ title, date, firstParagraph, secondParagraph, thirdParag
   const expandBtn = document.createElement("span");
 
   article.appendChild(articleTitle);
-  // articleTitle.appendChild(expandBtn);
   article.appendChild(articleDate);
   article.appendChild(paragraphOne);
   article.appendChild(paragraphTwo);
@@ -135,26 +146,29 @@ function articleMaker({ title, date, firstParagraph, secondParagraph, thirdParag
   expandBtn.textContent = "+";
 
   article.classList.add("article");
-  // articleTitle.classList.add("h2");
-  // articleDate.classList.add("date");
+  articleTitle.classList.add("h2");
+  articleDate.classList.add("date");
 
   expandBtn.classList.add("expandButton");
 
-  expandBtn.addEventListener("click", (event) => {
+  expandBtn.addEventListener("click", (_event) => {
     article.classList.toggle("article-open");
   });
 
   return article;
 }
 
-const includeArticles = data.map((article) => {
-  return articleMaker(article);
-});
-
 const articles = document.querySelector(".articles");
-includeArticles.forEach((article) => {
-  articles.appendChild(article);
-});
 
-// Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
-// Refresh the page to see the new article.
+// const includeArticles = data.map((article) => {
+//   return articleMaker(article);
+// });
+
+// includeArticles.forEach((article) => {
+//   articles.appendChild(article);
+// });
+
+// just forEach
+data.forEach((item) => {
+  articles.appendChild(articleMaker(item));
+});
